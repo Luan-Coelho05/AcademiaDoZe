@@ -1,21 +1,21 @@
 ﻿
 // Luan Coelho 
 
-using System;
+namespace AcademiaDoZe.Domain.Entities;
 
-namespace AcademiaDoZe.Domain.Entities
+public class AcessoColaborador : Entity
 {
-    public class AcessoColaborador : Entity
-    {
-        public Guid ColaboradorId { get; private set; }
-        public DateTime DataAcesso { get; private set; }
-        public string Acao { get; private set; }
+    public Colaborador Colaborador { get; private set; }
 
-        public AcessoColaborador(Guid colaboradorId, DateTime dataAcesso, string acao)
-        {
-            ColaboradorId = colaboradorId;
-            DataAcesso = dataAcesso;
-            Acao = acao;
-        }
+    public DateTime DataHora { get; private set; }
+
+    private AcessoColaborador(
+        int id,
+        Colaborador colaborador,
+        DateTime dataHora)
+        : base(id)
+    {
+        Colaborador = colaborador;
+        DataHora = dataHora;
     }
 }

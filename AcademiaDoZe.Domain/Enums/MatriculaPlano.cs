@@ -1,4 +1,7 @@
 ﻿// Luan Coelho
+
+namespace AcademiaDoZe.Domain.Enums;
+
 public enum MatriculaPlano
 {
     Mensal = 0,

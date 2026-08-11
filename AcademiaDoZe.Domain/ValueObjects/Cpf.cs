@@ -1,17 +1,28 @@
-﻿
-// Luan Coelho 
+﻿// Luan Coelho
 
-using System;
+using AcademiaDoZe.Domain.Common;
+using AcademiaDoZe.Domain.Services;
 
-namespace AcademiaDoZe.Domain.ValueObjects
+namespace AcademiaDoZe.Domain.ValueObjects;
+
+public record Cpf
 {
-    public record Cpf
-    {
-        public string Numero { get; init; }
+    public string Valor { get; }
 
-        public Cpf(string numero)
-        {
-            Numero = numero;
-        }
+    private Cpf(string valor)
+    {
+        Valor = valor;
     }
+
+    public static Result<Cpf> Criar(string valor)
+    {
+        if (NormalizadoService.TextoVazioOuNulo(valor))
+            return Result<Cpf>.Failure("Cpf", "CPF_OBRIGATORIO");
+
+        var textoLimpo = NormalizadoService.LimparEDigitos(valor);
+
+        return Result<Cpf>.Success(new Cpf(textoLimpo));
+    }
+
+    public override string ToString() => Valor;
 }
