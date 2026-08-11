@@ -1,6 +1,9 @@
 ﻿// Luan Coelho
+
+namespace AcademiaDoZe.Domain.Enums;
+
 public enum ColaboradorVinculo
 {
-    Clt = 0,
+    CLT = 0,
     Estagio = 1
 }

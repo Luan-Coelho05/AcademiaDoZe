@@ -1,4 +1,7 @@
 ﻿// Luan Coelho
+namespace AcademiaDoZe.Domain.Enums;
+
+
 [Flags]
 public enum MatriculaRestricoes
 {
