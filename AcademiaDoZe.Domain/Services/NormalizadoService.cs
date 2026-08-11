@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿// Luan Coelho
+
+using System.Text.RegularExpressions;
 
 namespace AcademiaDoZe.Domain.Services;
 

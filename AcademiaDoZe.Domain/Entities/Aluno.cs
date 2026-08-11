@@ -1,4 +1,6 @@
-﻿using AcademiaDoZe.Domain.ValueObjects;
+﻿// Luan Coelho
+
+using AcademiaDoZe.Domain.ValueObjects;
 namespace AcademiaDoZe.Domain.Entities;
 
 public class Aluno : Pessoa
