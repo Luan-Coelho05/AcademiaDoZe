@@ -24,3 +24,5 @@ public static partial class NormalizacaoService
     [GeneratedRegex(@"\s+")]
     private static partial Regex EspacosRegex();
 }
+
+
