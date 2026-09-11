@@ -39,12 +39,6 @@ public class MatriculaInfrastructureTests : TestBase
             laudo = Arquivo.Criar(new byte[] { 1, 2, 3, 4 }).Value;
         }
 
-        // Garante que TODA matrícula, com ou sem restrição, registre a sigla do SGBD da rodada
-        if (string.IsNullOrWhiteSpace(obsRestricao))
-        {
-            obsRestricao = $"Sem restrições médicas - {SiglaSgbd}";
-        }
-
         var matriculaResult = Matricula.Criar(
             id: 0,
             aluno: aluno,
@@ -176,8 +170,7 @@ public class MatriculaInfrastructureTests : TestBase
             dataInicio: DateOnly.FromDateTime(DateTime.Today),
             objetivo: "Luan Coelho",
             restricoesMedicas: MatriculaRestricoes.None,
-            laudoMedico: null,
-            observacoesRestricoes: $"Sem restrições médicas - {SiglaSgbd}"
+            laudoMedico: null
         ).Value!;
 
         var ex = await Assert.ThrowsAsync<InfrastructureException>(
