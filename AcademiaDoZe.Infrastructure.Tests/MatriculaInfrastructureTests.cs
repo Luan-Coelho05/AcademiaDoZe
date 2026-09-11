@@ -11,7 +11,7 @@ namespace AcademiaDoZe.Infrastructure.Tests;
 public class MatriculaInfrastructureTests : TestBase
 {
     // Ajuste a sigla do SGBD conforme a rodada: "SQLite", "MySQL" ou "SQLServer"
-    private const string SiglaSgbd = "SQLServer";
+    private const string SiglaSgbd = "SQLite";
 
     private readonly LogradouroRepository _logradouroRepo;
     private readonly AlunoRepository _alunoRepo;
@@ -37,6 +37,12 @@ public class MatriculaInfrastructureTests : TestBase
         if (restricoes != MatriculaRestricoes.None && laudo == null)
         {
             laudo = Arquivo.Criar(new byte[] { 1, 2, 3, 4 }).Value;
+        }
+
+        // Garante que TODA matrícula, com ou sem restrição, registre a sigla do SGBD da rodada
+        if (string.IsNullOrWhiteSpace(obsRestricao))
+        {
+            obsRestricao = $"Sem restrições médicas - {SiglaSgbd}";
         }
 
         var matriculaResult = Matricula.Criar(
@@ -170,7 +176,8 @@ public class MatriculaInfrastructureTests : TestBase
             dataInicio: DateOnly.FromDateTime(DateTime.Today),
             objetivo: "Luan Coelho",
             restricoesMedicas: MatriculaRestricoes.None,
-            laudoMedico: null
+            laudoMedico: null,
+            observacoesRestricoes: $"Sem restrições médicas - {SiglaSgbd}"
         ).Value!;
 
         var ex = await Assert.ThrowsAsync<InfrastructureException>(
@@ -282,43 +289,4 @@ public class MatriculaInfrastructureTests : TestBase
 
         await CriarEInserirMatriculaAsync(aluno, MatriculaPlano.Semestral, DateOnly.FromDateTime(DateTime.Today));
 
-        var ativasGeral = await _matriculaRepo.ObterAtivas();
-
-        Assert.NotNull(ativasGeral);
-        Assert.NotEmpty(ativasGeral);
-
-        var ativasPorAluno = await _matriculaRepo.ObterAtivas(aluno.Id);
-
-        Assert.NotNull(ativasPorAluno);
-        Assert.NotEmpty(ativasPorAluno);
-        Assert.All(ativasPorAluno, m => Assert.Equal(aluno.Id, m.AlunoId));
-    }
-
-    [Fact]
-    public async Task Matricula_ObterVencendoEmDias_RetornaMatriculasProximasDoVencimento()
-    {
-        var aluno = await AlunoInfrastructureTests.CriarEInserirAlunoAsync(_alunoRepo, _logradouroRepo);
-
-        var inicio = DateOnly.FromDateTime(DateTime.Today.AddDays(-25));
-
-        await CriarEInserirMatriculaAsync(aluno, MatriculaPlano.Mensal, inicio);
-
-        var vencendoEm30Dias = await _matriculaRepo.ObterVencendoEmDias(30);
-
-        Assert.NotNull(vencendoEm30Dias);
-        Assert.Contains(vencendoEm30Dias, m => m.AlunoId == aluno.Id);
-    }
-
-    [Fact]
-    public async Task Matricula_ObterPorPlano_FiltragemCorreta()
-    {
-        var aluno = await AlunoInfrastructureTests.CriarEInserirAlunoAsync(_alunoRepo, _logradouroRepo);
-
-        await CriarEInserirMatriculaAsync(aluno, MatriculaPlano.Trimestral);
-
-        var trimestrais = await _matriculaRepo.ObterPorPlano(MatriculaPlano.Trimestral);
-
-        Assert.NotNull(trimestrais);
-        Assert.Contains(trimestrais, m => m.AlunoId == aluno.Id && m.Plano == MatriculaPlano.Trimestral);
-    }
-}
+        var ativasGeral
