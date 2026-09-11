@@ -289,4 +289,43 @@ public class MatriculaInfrastructureTests : TestBase
 
         await CriarEInserirMatriculaAsync(aluno, MatriculaPlano.Semestral, DateOnly.FromDateTime(DateTime.Today));
 
-        var ativasGeral
+        var ativasGeral = await _matriculaRepo.ObterAtivas();
+
+        Assert.NotNull(ativasGeral);
+        Assert.NotEmpty(ativasGeral);
+
+        var ativasPorAluno = await _matriculaRepo.ObterAtivas(aluno.Id);
+
+        Assert.NotNull(ativasPorAluno);
+        Assert.NotEmpty(ativasPorAluno);
+        Assert.All(ativasPorAluno, m => Assert.Equal(aluno.Id, m.AlunoId));
+    }
+
+    [Fact]
+    public async Task Matricula_ObterVencendoEmDias_RetornaMatriculasProximasDoVencimento()
+    {
+        var aluno = await AlunoInfrastructureTests.CriarEInserirAlunoAsync(_alunoRepo, _logradouroRepo);
+
+        var inicio = DateOnly.FromDateTime(DateTime.Today.AddDays(-25));
+
+        await CriarEInserirMatriculaAsync(aluno, MatriculaPlano.Mensal, inicio);
+
+        var vencendoEm30Dias = await _matriculaRepo.ObterVencendoEmDias(30);
+
+        Assert.NotNull(vencendoEm30Dias);
+        Assert.Contains(vencendoEm30Dias, m => m.AlunoId == aluno.Id);
+    }
+
+    [Fact]
+    public async Task Matricula_ObterPorPlano_FiltragemCorreta()
+    {
+        var aluno = await AlunoInfrastructureTests.CriarEInserirAlunoAsync(_alunoRepo, _logradouroRepo);
+
+        await CriarEInserirMatriculaAsync(aluno, MatriculaPlano.Trimestral);
+
+        var trimestrais = await _matriculaRepo.ObterPorPlano(MatriculaPlano.Trimestral);
+
+        Assert.NotNull(trimestrais);
+        Assert.Contains(trimestrais, m => m.AlunoId == aluno.Id && m.Plano == MatriculaPlano.Trimestral);
+    }
+}
