@@ -11,7 +11,7 @@ namespace AcademiaDoZe.Infrastructure.Tests;
 public class MatriculaInfrastructureTests : TestBase
 {
     // Ajuste a sigla do SGBD conforme a rodada: "SQLite", "MySQL" ou "SQLServer"
-    private const string SiglaSgbd = "SQLite";
+    private const string SiglaSgbd = "SQLServer";
 
     private readonly LogradouroRepository _logradouroRepo;
     private readonly AlunoRepository _alunoRepo;
@@ -37,6 +37,12 @@ public class MatriculaInfrastructureTests : TestBase
         if (restricoes != MatriculaRestricoes.None && laudo == null)
         {
             laudo = Arquivo.Criar(new byte[] { 1, 2, 3, 4 }).Value;
+        }
+
+        // Garante que TODA matrícula, com ou sem restrição, registre a sigla do SGBD da rodada
+        if (string.IsNullOrWhiteSpace(obsRestricao))
+        {
+            obsRestricao = $"Sem restrições médicas - {SiglaSgbd}";
         }
 
         var matriculaResult = Matricula.Criar(
@@ -170,7 +176,8 @@ public class MatriculaInfrastructureTests : TestBase
             dataInicio: DateOnly.FromDateTime(DateTime.Today),
             objetivo: "Luan Coelho",
             restricoesMedicas: MatriculaRestricoes.None,
-            laudoMedico: null
+            laudoMedico: null,
+            observacoesRestricoes: $"Sem restrições médicas - {SiglaSgbd}"
         ).Value!;
 
         var ex = await Assert.ThrowsAsync<InfrastructureException>(
