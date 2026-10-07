@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:AcademiaDoZe.Presentation.AppMaui.ViewModels"
+             x:Class="AcademiaDoZe.Presentation.AppMaui.Views.LogradouroPage"
+             x:DataType="viewmodels:LogradouroViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="#0B0E14">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="32,24" Spacing="20" MaximumWidthRequest="720" HorizontalOptions="Center">
+
+            <!-- BLOCO DE CONSULTA DE CEP -->
+            <Border BackgroundColor="#111622"
+                    Stroke="#1E2638"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 14"
+                    Padding="20">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="CEP" TextColor="#94A3B8" FontSize="13" FontAttributes="Bold" />
+                    <Grid ColumnDefinitions="*, Auto" ColumnSpacing="12">
+                        <Border Grid.Column="0"
+                                BackgroundColor="#182030"
+                                Stroke="#2A3449"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 8"
+                                Padding="12,0"
+                                HeightRequest="44">
+                            <Entry Text="{Binding Logradouro.Cep, Mode=TwoWay}"
+                                   Placeholder="00000-000"
+                                   PlaceholderColor="#475569"
+                                   TextColor="#FFFFFF"
+                                   Keyboard="Numeric"
+                                   VerticalOptions="Center" />
+                        </Border>
+
+                        <!-- Comando correto: SearchByCepCommand -->
+                        <Button Grid.Column="1"
+                                Text="Buscar CEP"
+                                FontAttributes="Bold"
+                                TextColor="#FFFFFF"
+                                BackgroundColor="#0284C7"
+                                CornerRadius="8"
+                                HeightRequest="44"
+                                Padding="20,0"
+                                Command="{Binding SearchByCepCommand}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- FORMULÁRIO DE DADOS -->
+            <Border BackgroundColor="#111622"
+                    Stroke="#1E2638"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 14"
+                    Padding="24,20">
+                <VerticalStackLayout Spacing="16">
+
+                    <!-- ID Informativo -->
+                    <Label Text="{Binding LogradouroId, StringFormat='Logradouro ID: {0}'}"
+                           TextColor="#38BDF8"
+                           FontSize="14"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center" />
+
+                    <!-- Nome / Rua -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Nome / Rua" TextColor="#94A3B8" FontSize="13" FontAttributes="Bold" />
+                        <Border BackgroundColor="#182030" Stroke="#2A3449" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="12,0" HeightRequest="44">
+                            <Entry Text="{Binding Logradouro.Nome, Mode=TwoWay}"
+                                   Placeholder="Ex: Rua das Flores"
+                                   PlaceholderColor="#475569"
+                                   TextColor="#FFFFFF"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Bairro -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Bairro" TextColor="#94A3B8" FontSize="13" FontAttributes="Bold" />
+                        <Border BackgroundColor="#182030" Stroke="#2A3449" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="12,0" HeightRequest="44">
+                            <Entry Text="{Binding Logradouro.Bairro, Mode=TwoWay}"
+                                   Placeholder="Ex: Centro"
+                                   PlaceholderColor="#475569"
+                                   TextColor="#FFFFFF"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Cidade e Estado (UF) -->
+                    <Grid ColumnDefinitions="3*, 1*" ColumnSpacing="12">
+                        <VerticalStackLayout Grid.Column="0" Spacing="6">
+                            <Label Text="Cidade" TextColor="#94A3B8" FontSize="13" FontAttributes="Bold" />
+                            <Border BackgroundColor="#182030" Stroke="#2A3449" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="12,0" HeightRequest="44">
+                                <Entry Text="{Binding Logradouro.Cidade, Mode=TwoWay}"
+                                       Placeholder="Ex: Florianópolis"
+                                       PlaceholderColor="#475569"
+                                       TextColor="#FFFFFF"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- Propriedade correta: Logradouro.Estado -->
+                        <VerticalStackLayout Grid.Column="1" Spacing="6">
+                            <Label Text="UF" TextColor="#94A3B8" FontSize="13" FontAttributes="Bold" />
+                            <Border BackgroundColor="#182030" Stroke="#2A3449" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="12,0" HeightRequest="44">
+                                <Entry Text="{Binding Logradouro.Estado, Mode=TwoWay}"
+                                       Placeholder="SC"
+                                       PlaceholderColor="#475569"
+                                       TextColor="#FFFFFF"
+                                       MaxLength="2"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- País -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="País" TextColor="#94A3B8" FontSize="13" FontAttributes="Bold" />
+                        <Border BackgroundColor="#182030" Stroke="#2A3449" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="12,0" HeightRequest="44">
+                            <Entry Text="{Binding Logradouro.Pais, Mode=TwoWay}"
+                                   Placeholder="Brasil"
+                                   PlaceholderColor="#475569"
+                                   TextColor="#FFFFFF"
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- BOTÕES: CANCELAR E SALVAR -->
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="16" Margin="0,8,0,24">
+                <!-- Comando correto: CancelCommand -->
+                <Button Grid.Column="0"
+                        Text="Cancelar"
+                        FontAttributes="Bold"
+                        TextColor="#94A3B8"
+                        BackgroundColor="#1E2638"
+                        CornerRadius="8"
+                        HeightRequest="48"
+                        Command="{Binding CancelCommand}" />
+
+                <!-- Comando correto: SaveLogradouroCommand -->
+                <Button Grid.Column="1"
+                        Text="Salvar"
+                        FontAttributes="Bold"
+                        TextColor="#FFFFFF"
+                        BackgroundColor="#0284C7"
+                        CornerRadius="8"
+                        HeightRequest="48"
+                        Command="{Binding SaveLogradouroCommand}" />
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

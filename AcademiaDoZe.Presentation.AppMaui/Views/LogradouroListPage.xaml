@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:AcademiaDoZe.Presentation.AppMaui.ViewModels"
+             xmlns:dtos="clr-namespace:AcademiaDoZe.Application.DTOs;assembly=AcademiaDoZe.Application"
+             x:Class="AcademiaDoZe.Presentation.AppMaui.Views.LogradouroListPage"
+             x:DataType="viewmodels:LogradouroListViewModel"
+             x:Name="ThisPage"
+             BackgroundColor="#0B0E14">
+
+    <Grid>
+        <Grid RowDefinitions="Auto, *" Padding="24,20" RowSpacing="18">
+
+            <!-- BARRA DE BUSCA E FILTROS -->
+            <Border Grid.Row="0"
+                    BackgroundColor="#111622"
+                    Stroke="#1E2638"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 14"
+                    Padding="16,12">
+
+                <Grid ColumnDefinitions="160, *, Auto" ColumnSpacing="12" VerticalOptions="Center">
+
+                    <!-- SELETOR COM BINDING BIDIRECIONAL E CORES NÍTIDAS -->
+                    <Border Grid.Column="0"
+                            BackgroundColor="#182030"
+                            Stroke="#2A3449"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 8"
+                            Padding="8,0"
+                            HeightRequest="44">
+                        <Picker ItemsSource="{Binding FilterTypes}"
+                                 SelectedItem="{Binding SelectedFilterType, Mode=TwoWay}"
+                                 SelectedIndex="0"
+                                 TextColor="#FFFFFF"
+                                   BackgroundColor="Transparent"
+                                     VerticalOptions="Center" />
+                    </Border>
+
+                    <!-- ENTRADA DE TEXTO -->
+                    <Border Grid.Column="1"
+                            BackgroundColor="#182030"
+                            Stroke="#2A3449"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 8"
+                            Padding="12,0"
+                            HeightRequest="44">
+                        <Entry Placeholder="Digite o termo para buscar..."
+                               PlaceholderColor="#475569"
+                               TextColor="#FFFFFF"
+                               Text="{Binding SearchText, Mode=TwoWay}"
+                               ReturnCommand="{Binding SearchLogradourosCommand}"
+                               BackgroundColor="Transparent"
+                               VerticalOptions="Center" />
+                    </Border>
+
+                    <!-- BOTAO BUSCAR -->
+                    <Button Grid.Column="2"
+                            Text="Buscar"
+                            FontAttributes="Bold"
+                            TextColor="#FFFFFF"
+                            BackgroundColor="#0284C7"
+                            CornerRadius="8"
+                            HeightRequest="44"
+                            Padding="22,0"
+                            Command="{Binding SearchLogradourosCommand}" />
+                </Grid>
+            </Border>
+
+            <!-- LISTAGEM COM ESPAÇAMENTO -->
+            <RefreshView Grid.Row="1"
+                         Command="{Binding RefreshCommand}"
+                         IsRefreshing="{Binding IsRefreshing}">
+                <CollectionView ItemsSource="{Binding Logradouros}"
+                                SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="12" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="8" Margin="0,40">
+                            <Label Text="Nenhum logradouro encontrado"
+                                   TextColor="#64748B"
+                                   FontSize="15"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="dtos:LogradouroDto">
+                            <Border BackgroundColor="#111622"
+                                    Stroke="#1E2638"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 12"
+                                    Padding="20,16">
+
+                                <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+
+                                    <VerticalStackLayout Grid.Column="0" Spacing="4" VerticalOptions="Center">
+                                        <Label Text="{Binding Cep}"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="#38BDF8" />
+
+                                        <Label Text="{Binding Nome}"
+                                               FontSize="15"
+                                               FontAttributes="Bold"
+                                               TextColor="#F8FAFC" />
+
+                                        <HorizontalStackLayout Spacing="6">
+                                            <Label Text="{Binding Bairro}" TextColor="#94A3B8" FontSize="12" />
+                                            <Label Text="•" TextColor="#475569" FontSize="12" />
+                                            <Label Text="{Binding Cidade}" TextColor="#94A3B8" FontSize="12" />
+                                            <Label Text="-" TextColor="#475569" FontSize="12" />
+                                            <Label Text="{Binding Uf}" TextColor="#94A3B8" FontSize="12" />
+                                            <Label Text="•" TextColor="#475569" FontSize="12" />
+                                            <Label Text="{Binding Pais}" TextColor="#64748B" FontSize="12" />
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+
+                                    <HorizontalStackLayout Grid.Column="1" Spacing="8" VerticalOptions="Center">
+                                        <Button Text="Editar"
+                                                FontSize="12"
+                                                FontAttributes="Bold"
+                                                TextColor="#38BDF8"
+                                                BackgroundColor="#162235"
+                                                CornerRadius="6"
+                                                HeightRequest="36"
+                                                Padding="14,0"
+                                                Command="{Binding Source={x:Reference ThisPage}, Path=BindingContext.EditLogradouroCommand}"
+                                                CommandParameter="{Binding .}" />
+
+                                        <Button Text="Excluir"
+                                                FontSize="12"
+                                                FontAttributes="Bold"
+                                                TextColor="#F87171"
+                                                BackgroundColor="#2D151B"
+                                                CornerRadius="6"
+                                                HeightRequest="36"
+                                                Padding="14,0"
+                                                Command="{Binding Source={x:Reference ThisPage}, Path=BindingContext.DeleteLogradouroCommand}"
+                                                CommandParameter="{Binding .}" />
+                                    </HorizontalStackLayout>
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+
+        </Grid>
+
+        <!-- BOTÃO FLUTUANTE ADICIONAR (+) -->
+        <Button Text="+"
+                FontSize="24"
+                TextColor="#FFFFFF"
+                BackgroundColor="#0284C7"
+                CornerRadius="28"
+                WidthRequest="56"
+                HeightRequest="56"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Margin="28"
+                Command="{Binding AddLogradouroCommand}" />
+    </Grid>
+
+</ContentPage>

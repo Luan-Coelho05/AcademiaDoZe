@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Application", "..\AcademiaDoZe.Application\AcademiaDoZe.Application.csproj", "{000D6F79-5230-4CF7-982E-3DF2D9CB98E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcademiaDoZe.Presentation.AppMaui", "..\AcademiaDoZe.Presentation.AppMaui\AcademiaDoZe.Presentation.AppMaui.csproj", "{C3AD1049-15EC-4959-B066-528A8EB6D957}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,11 @@ Global
 		{000D6F79-5230-4CF7-982E-3DF2D9CB98E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{000D6F79-5230-4CF7-982E-3DF2D9CB98E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{000D6F79-5230-4CF7-982E-3DF2D9CB98E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3AD1049-15EC-4959-B066-528A8EB6D957}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3AD1049-15EC-4959-B066-528A8EB6D957}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3AD1049-15EC-4959-B066-528A8EB6D957}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C3AD1049-15EC-4959-B066-528A8EB6D957}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3AD1049-15EC-4959-B066-528A8EB6D957}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
