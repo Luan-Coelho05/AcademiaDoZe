@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AcademiaDoZe.Presentation.AppMaui.Views.DashboardListPage"
+             xmlns:vm="clr-namespace:AcademiaDoZe.Presentation.AppMaui.ViewModels"
+             x:DataType="vm:DashboardListViewModel"
+             BackgroundColor="#11141C"
+             Shell.NavBarIsVisible="False"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="28" Padding="32,24" MaximumWidthRequest="1000" HorizontalOptions="Center">
+
+            <!-- Banner / Header de Identificação -->
+            <Border StrokeShape="RoundRectangle 20"
+                    Stroke="#2D3548"
+                    StrokeThickness="1"
+                    BackgroundColor="#181D2A"
+                    Padding="24,20"
+                    Margin="0,8,0,0">
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="20" VerticalOptions="Center">
+
+                    <Border Grid.Column="0"
+                            StrokeShape="RoundRectangle 18"
+                            Stroke="#3F4963"
+                            StrokeThickness="1.5"
+                            BackgroundColor="#11141D"
+                            Padding="6"
+                            VerticalOptions="Center">
+                        <Image Source="academiadoze.png"
+                               HeightRequest="105"
+                               WidthRequest="105"
+                               Aspect="AspectFit" />
+                    </Border>
+
+                    <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
+                        <Label Text="PAINEL OPERACIONAL"
+                               FontSize="11"
+                               TextColor="#38BDF8"
+                               FontAttributes="Bold"
+                               CharacterSpacing="1.5" />
+
+                        <Label Text="ACADEMIA DO ZÉ"
+                               FontSize="28"
+                               FontAttributes="Bold"
+                               TextColor="#FFFFFF" />
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <!-- Título da Seção de Métricas -->
+            <Label Text="MÉTRICAS DO SISTEMA"
+                   FontSize="12"
+                   FontAttributes="Bold"
+                   TextColor="#6B7A99"
+                   CharacterSpacing="1.2"
+                   Margin="4,0,0,-12" />
+
+            <!-- Grelha dos 4 Cards Rigorosamente Simétricos -->
+            <Grid RowDefinitions="Auto,Auto" 
+                  ColumnDefinitions="*,*" 
+                  RowSpacing="18" 
+                  ColumnSpacing="18">
+
+                <!-- 1. Card Logradouros -->
+                <Border Grid.Row="0" Grid.Column="0"
+                        StrokeShape="RoundRectangle 16"
+                        Stroke="#0284C7"
+                        StrokeThickness="1.5"
+                        BackgroundColor="#161C28"
+                        Padding="22">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToLogradourosCommand}"/>
+                    </Border.GestureRecognizers>
+                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto">
+                        <Label Grid.Row="0" Grid.Column="0" 
+                               Text="{Binding TotalLogradouros}" 
+                               FontSize="42" 
+                               FontAttributes="Bold" 
+                               TextColor="#38BDF8" />
+                        <Border Grid.Row="0" Grid.Column="1" 
+                                StrokeShape="RoundRectangle 8"
+                                BackgroundColor="#0C4A6E" 
+                                Stroke="#0284C7"
+                                StrokeThickness="1"
+                                Padding="10,4"
+                                VerticalOptions="Start">
+                            <Label Text="GERENCIAR" FontSize="10" TextColor="#38BDF8" FontAttributes="Bold" CharacterSpacing="1"/>
+                        </Border>
+
+                        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                               Text="LOGRADOUROS" 
+                               FontSize="13" 
+                               TextColor="#F1F5F9" 
+                               FontAttributes="Bold" 
+                               CharacterSpacing="1" 
+                               Margin="0,8,0,2"/>
+                        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                               Text="Endereços, bairros e rotas" 
+                               FontSize="12" 
+                               TextColor="#8191A6"/>
+                    </Grid>
+                </Border>
+
+                <!-- 2. Card Alunos -->
+                <Border Grid.Row="0" Grid.Column="1"
+                        StrokeShape="RoundRectangle 16"
+                        Stroke="#059669"
+                        StrokeThickness="1.5"
+                        BackgroundColor="#141F21"
+                        Padding="22">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToAlunosCommand}"/>
+                    </Border.GestureRecognizers>
+                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto">
+                        <Label Grid.Row="0" Grid.Column="0" 
+                               Text="{Binding TotalAlunos}" 
+                               FontSize="42" 
+                               FontAttributes="Bold" 
+                               TextColor="#34D399" />
+                        <Border Grid.Row="0" Grid.Column="1" 
+                                StrokeShape="RoundRectangle 8"
+                                BackgroundColor="#064E3B" 
+                                Stroke="#059669"
+                                StrokeThickness="1"
+                                Padding="10,4"
+                                VerticalOptions="Start">
+                            <Label Text="ATIVOS" FontSize="10" TextColor="#34D399" FontAttributes="Bold" CharacterSpacing="1"/>
+                        </Border>
+
+                        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                               Text="ALUNOS" 
+                               FontSize="13" 
+                               TextColor="#F1F5F9" 
+                               FontAttributes="Bold" 
+                               CharacterSpacing="1" 
+                               Margin="0,8,0,2"/>
+                        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                               Text="Fichas ativas e treinos" 
+                               FontSize="12" 
+                               TextColor="#8191A6"/>
+                    </Grid>
+                </Border>
+
+                <!-- 3. Card Colaboradores -->
+                <Border Grid.Row="1" Grid.Column="0"
+                        StrokeShape="RoundRectangle 16"
+                        Stroke="#8B5CF6"
+                        StrokeThickness="1.5"
+                        BackgroundColor="#181528"
+                        Padding="22">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToColaboradoresCommand}"/>
+                    </Border.GestureRecognizers>
+                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto">
+                        <Label Grid.Row="0" Grid.Column="0" 
+                               Text="{Binding TotalColaboradores}" 
+                               FontSize="42" 
+                               FontAttributes="Bold" 
+                               TextColor="#A78BFA" />
+                        <Border Grid.Row="0" Grid.Column="1" 
+                                StrokeShape="RoundRectangle 8"
+                                BackgroundColor="#3B1D6E" 
+                                Stroke="#8B5CF6"
+                                StrokeThickness="1"
+                                Padding="10,4"
+                                VerticalOptions="Start">
+                            <Label Text="EQUIPE" FontSize="10" TextColor="#C4B5FD" FontAttributes="Bold" CharacterSpacing="1"/>
+                        </Border>
+
+                        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                               Text="COLABORADORES" 
+                               FontSize="13" 
+                               TextColor="#F1F5F9" 
+                               FontAttributes="Bold" 
+                               CharacterSpacing="1" 
+                               Margin="0,8,0,2"/>
+                        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                               Text="Corpo técnico e recepção" 
+                               FontSize="12" 
+                               TextColor="#8191A6"/>
+                    </Grid>
+                </Border>
+
+                <!-- 4. Card Matrículas -->
+                <Border Grid.Row="1" Grid.Column="1"
+                        StrokeShape="RoundRectangle 16"
+                        Stroke="#D97706"
+                        StrokeThickness="1.5"
+                        BackgroundColor="#221A15"
+                        Padding="22">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToMatriculasCommand}"/>
+                    </Border.GestureRecognizers>
+                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,Auto">
+                        <Label Grid.Row="0" Grid.Column="0" 
+                               Text="{Binding TotalMatriculas}" 
+                               FontSize="42" 
+                               FontAttributes="Bold" 
+                               TextColor="#FBBF24" />
+                        <Border Grid.Row="0" Grid.Column="1" 
+                                StrokeShape="RoundRectangle 8"
+                                BackgroundColor="#78350F" 
+                                Stroke="#D97706"
+                                StrokeThickness="1"
+                                Padding="10,4"
+                                VerticalOptions="Start">
+                            <Label Text="PLANOS" FontSize="10" TextColor="#FBBF24" FontAttributes="Bold" CharacterSpacing="1"/>
+                        </Border>
+
+                        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                               Text="MATRÍCULAS" 
+                               FontSize="13" 
+                               TextColor="#F1F5F9" 
+                               FontAttributes="Bold" 
+                               CharacterSpacing="1" 
+                               Margin="0,8,0,2"/>
+                        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                               Text="Assinaturas e contratos" 
+                               FontSize="12" 
+                               TextColor="#8191A6"/>
+                    </Grid>
+                </Border>
+
+            </Grid>
+
+            <ActivityIndicator IsVisible="{Binding IsBusy}" 
+                               IsRunning="{Binding IsBusy}" 
+                               Color="#38BDF8" 
+                               HeightRequest="36" 
+                               WidthRequest="36"
+                               HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

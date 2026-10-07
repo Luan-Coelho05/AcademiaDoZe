@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="AcademiaDoZe.Presentation.AppMaui.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:AcademiaDoZe.Presentation.AppMaui.Views"
+    BackgroundColor="#11141C"
+    ForegroundColor="#38BDF8"
+    TitleColor="#FFFFFF"
+    FlyoutBackgroundColor="#161C28"
+    FlyoutWidth="280">
+
+    <!-- Cabeçalho Estilizado do Menu Lateral -->
+    <Shell.FlyoutHeader>
+        <Border BackgroundColor="#11141D"
+                Stroke="#2D3548"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 0,0,16,16"
+                Padding="20,24"
+                Margin="0,0,0,12">
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Border StrokeShape="RoundRectangle 16"
+                        Stroke="#3F4963"
+                        StrokeThickness="1.5"
+                        BackgroundColor="#181D2A"
+                        Padding="6"
+                        HorizontalOptions="Center">
+                    <Image Source="academiadoze.png"
+                           HeightRequest="75"
+                           WidthRequest="75"
+                           Aspect="AspectFit" />
+                </Border>
+
+                <Label Text="ACADEMIA DO ZÉ"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#FFFFFF"
+                       HorizontalTextAlignment="Center"
+                       CharacterSpacing="1.2" />
+
+                <Label Text="Navegação do Sistema"
+                       FontSize="11"
+                       TextColor="#8E9CB2"
+                       HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+        </Border>
+    </Shell.FlyoutHeader>
+
+    <!-- Estilo para o Texto e Fundo dos Itens do Menu -->
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid ColumnDefinitions="48,*" HeightRequest="50" Padding="16,0">
+                <Label Grid.Column="0" 
+                       Text="✦" 
+                       TextColor="#38BDF8" 
+                       FontSize="16" 
+                       VerticalOptions="Center" 
+                       HorizontalOptions="Center" />
+
+                <Label Grid.Column="1"
+                       Text="{Binding Title}"
+                       TextColor="#F1F5F9"
+                       FontSize="15"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <!-- Rotas do Sistema -->
+    <FlyoutItem Title="Dashboard" Route="dashboard">
+        <ShellContent ContentTemplate="{DataTemplate views:DashboardListPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Logradouros" Route="logradouros">
+        <ShellContent ContentTemplate="{DataTemplate views:LogradouroListPage}" />
+    </FlyoutItem>
+
+</Shell>
