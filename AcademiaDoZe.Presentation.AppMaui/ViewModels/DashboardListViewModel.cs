@@ -1,8 +1,9 @@
 ﻿
-// Luan Coelho 
+// Luan Coelho
 
 using AcademiaDoZe.Application.Interfaces;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace AcademiaDoZe.Presentation.AppMaui.ViewModels;
 
@@ -36,10 +37,16 @@ public partial class DashboardListViewModel : BaseViewModel
         _colaboradorService = colaboradorService;
         _matriculaService = matriculaService;
         Title = "Dashboard";
+
+        // Escuta qualquer adição, edição ou exclusão de logradouros
+        WeakReferenceMessenger.Default.Register<LogradourosChangedMessage>(this, async (r, m) =>
+        {
+            await LoadDashboardDataAsync();
+        });
     }
 
     [RelayCommand]
-    private async Task LoadDashboardDataAsync()
+    public async Task LoadDashboardDataAsync()
     {
         if (IsBusy)
             return;

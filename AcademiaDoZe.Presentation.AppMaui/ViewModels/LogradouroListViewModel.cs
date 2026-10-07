@@ -1,9 +1,8 @@
-﻿
-// Luan Coelho
-
+﻿// Luan Coelho
 using AcademiaDoZe.Application.DTOs;
 using AcademiaDoZe.Application.Interfaces;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 
 namespace AcademiaDoZe.Presentation.AppMaui.ViewModels;
@@ -224,6 +223,10 @@ public partial class LogradouroListViewModel : BaseViewModel
             if (success)
             {
                 Logradouros.Remove(logradouro);
+
+                // Notifica o Dashboard para atualizar a contagem
+                WeakReferenceMessenger.Default.Send(new LogradourosChangedMessage());
+
                 await Shell.Current.DisplayAlertAsync("Sucesso", "Logradouro excluído com sucesso!", "OK");
             }
             else
