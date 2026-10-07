@@ -1,9 +1,8 @@
-﻿
-// Luan Coelho
-
+﻿// Luan Coelho
 using AcademiaDoZe.Application.DTOs;
 using AcademiaDoZe.Application.Interfaces;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace AcademiaDoZe.Presentation.AppMaui.ViewModels;
 
@@ -187,6 +186,9 @@ public partial class LogradouroViewModel : BaseViewModel
                 await _logradouroService.AdicionarAsync(Logradouro, cts.Token);
                 await Shell.Current.DisplayAlertAsync("Sucesso", "Logradouro criado com sucesso!", "OK");
             }
+
+            // Notifica o Dashboard para atualizar os contadores
+            WeakReferenceMessenger.Default.Send(new LogradourosChangedMessage());
 
             await Shell.Current.GoToAsync("..");
         }
