@@ -6,48 +6,48 @@
              x:Class="AcademiaDoZe.Presentation.AppMaui.Views.LogradouroListPage"
              x:DataType="viewmodels:LogradouroListViewModel"
              x:Name="ThisPage"
-             BackgroundColor="#0B0E14">
+             BackgroundColor="{AppThemeBinding Light=#F1F5F9, Dark=#0B0E14}">
 
     <Grid>
         <Grid RowDefinitions="Auto, *" Padding="24,20" RowSpacing="18">
 
             <!-- BARRA DE BUSCA E FILTROS -->
             <Border Grid.Row="0"
-                    BackgroundColor="#111622"
-                    Stroke="#1E2638"
+                    BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#111622}"
+                    Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E2638}"
                     StrokeThickness="1"
                     StrokeShape="RoundRectangle 14"
                     Padding="16,12">
 
                 <Grid ColumnDefinitions="160, *, Auto" ColumnSpacing="12" VerticalOptions="Center">
 
-                    <!-- SELETOR COM BINDING BIDIRECIONAL E CORES NÍTIDAS -->
+                    <!-- SELETOR COM BINDING BIDIRECIONAL -->
                     <Border Grid.Column="0"
-                            BackgroundColor="#182030"
-                            Stroke="#2A3449"
+                            BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#182030}"
+                            Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#2A3449}"
                             StrokeThickness="1"
                             StrokeShape="RoundRectangle 8"
                             Padding="8,0"
                             HeightRequest="44">
                         <Picker ItemsSource="{Binding FilterTypes}"
-                                 SelectedItem="{Binding SelectedFilterType, Mode=TwoWay}"
-                                 SelectedIndex="0"
-                                 TextColor="#FFFFFF"
-                                   BackgroundColor="Transparent"
-                                     VerticalOptions="Center" />
+                                SelectedItem="{Binding SelectedFilterType, Mode=TwoWay}"
+                                SelectedIndex="0"
+                                TextColor="{AppThemeBinding Light=#0F172A, Dark=#FFFFFF}"
+                                BackgroundColor="Transparent"
+                                VerticalOptions="Center" />
                     </Border>
 
                     <!-- ENTRADA DE TEXTO -->
                     <Border Grid.Column="1"
-                            BackgroundColor="#182030"
-                            Stroke="#2A3449"
+                            BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#182030}"
+                            Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#2A3449}"
                             StrokeThickness="1"
                             StrokeShape="RoundRectangle 8"
                             Padding="12,0"
                             HeightRequest="44">
                         <Entry Placeholder="Digite o termo para buscar..."
-                               PlaceholderColor="#475569"
-                               TextColor="#FFFFFF"
+                               PlaceholderColor="{AppThemeBinding Light=#94A3B8, Dark=#475569}"
+                               TextColor="{AppThemeBinding Light=#0F172A, Dark=#FFFFFF}"
                                Text="{Binding SearchText, Mode=TwoWay}"
                                ReturnCommand="{Binding SearchLogradourosCommand}"
                                BackgroundColor="Transparent"
@@ -80,7 +80,7 @@
                     <CollectionView.EmptyView>
                         <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="8" Margin="0,40">
                             <Label Text="Nenhum logradouro encontrado"
-                                   TextColor="#64748B"
+                                   TextColor="{AppThemeBinding Light=#94A3B8, Dark=#64748B}"
                                    FontSize="15"
                                    HorizontalOptions="Center" />
                         </VerticalStackLayout>
@@ -88,8 +88,8 @@
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="dtos:LogradouroDto">
-                            <Border BackgroundColor="#111622"
-                                    Stroke="#1E2638"
+                            <Border BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#111622}"
+                                    Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#1E2638}"
                                     StrokeThickness="1"
                                     StrokeShape="RoundRectangle 12"
                                     Padding="20,16">
@@ -100,21 +100,21 @@
                                         <Label Text="{Binding Cep}"
                                                FontSize="16"
                                                FontAttributes="Bold"
-                                               TextColor="#38BDF8" />
+                                               TextColor="{AppThemeBinding Light=#0284C7, Dark=#38BDF8}" />
 
                                         <Label Text="{Binding Nome}"
                                                FontSize="15"
                                                FontAttributes="Bold"
-                                               TextColor="#F8FAFC" />
+                                               TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}" />
 
                                         <HorizontalStackLayout Spacing="6">
-                                            <Label Text="{Binding Bairro}" TextColor="#94A3B8" FontSize="12" />
-                                            <Label Text="•" TextColor="#475569" FontSize="12" />
-                                            <Label Text="{Binding Cidade}" TextColor="#94A3B8" FontSize="12" />
-                                            <Label Text="-" TextColor="#475569" FontSize="12" />
-                                            <Label Text="{Binding Uf}" TextColor="#94A3B8" FontSize="12" />
-                                            <Label Text="•" TextColor="#475569" FontSize="12" />
-                                            <Label Text="{Binding Pais}" TextColor="#64748B" FontSize="12" />
+                                            <Label Text="{Binding Bairro}" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" FontSize="12" />
+                                            <Label Text="•" TextColor="{AppThemeBinding Light=#CBD5E1, Dark=#475569}" FontSize="12" />
+                                            <Label Text="{Binding Cidade}" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" FontSize="12" />
+                                            <Label Text="-" TextColor="{AppThemeBinding Light=#CBD5E1, Dark=#475569}" FontSize="12" />
+                                            <Label Text="{Binding Uf}" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" FontSize="12" />
+                                            <Label Text="•" TextColor="{AppThemeBinding Light=#CBD5E1, Dark=#475569}" FontSize="12" />
+                                            <Label Text="{Binding Pais}" TextColor="{AppThemeBinding Light=#64748B, Dark=#64748B}" FontSize="12" />
                                         </HorizontalStackLayout>
                                     </VerticalStackLayout>
 
@@ -122,8 +122,8 @@
                                         <Button Text="Editar"
                                                 FontSize="12"
                                                 FontAttributes="Bold"
-                                                TextColor="#38BDF8"
-                                                BackgroundColor="#162235"
+                                                TextColor="{AppThemeBinding Light=#0284C7, Dark=#38BDF8}"
+                                                BackgroundColor="{AppThemeBinding Light=#E0F2FE, Dark=#162235}"
                                                 CornerRadius="6"
                                                 HeightRequest="36"
                                                 Padding="14,0"
@@ -133,8 +133,8 @@
                                         <Button Text="Excluir"
                                                 FontSize="12"
                                                 FontAttributes="Bold"
-                                                TextColor="#F87171"
-                                                BackgroundColor="#2D151B"
+                                                TextColor="{AppThemeBinding Light=#DC2626, Dark=#F87171}"
+                                                BackgroundColor="{AppThemeBinding Light=#FEE2E2, Dark=#2D151B}"
                                                 CornerRadius="6"
                                                 HeightRequest="36"
                                                 Padding="14,0"
@@ -164,5 +164,4 @@
                 Margin="28"
                 Command="{Binding AddLogradouroCommand}" />
     </Grid>
-
 </ContentPage>

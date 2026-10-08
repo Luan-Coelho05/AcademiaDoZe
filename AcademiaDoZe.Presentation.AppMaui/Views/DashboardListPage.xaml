@@ -4,7 +4,7 @@
              x:Class="AcademiaDoZe.Presentation.AppMaui.Views.DashboardListPage"
              xmlns:vm="clr-namespace:AcademiaDoZe.Presentation.AppMaui.ViewModels"
              x:DataType="vm:DashboardListViewModel"
-             BackgroundColor="#11141C"
+             BackgroundColor="{AppThemeBinding Light=#F1F5F9, Dark=#11141C}"
              Shell.NavBarIsVisible="False"
              Title="{Binding Title}">
 
@@ -13,18 +13,18 @@
 
             <!-- Banner / Header de Identificação -->
             <Border StrokeShape="RoundRectangle 20"
-                    Stroke="#2D3548"
+                    Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#2D3548}"
                     StrokeThickness="1"
-                    BackgroundColor="#181D2A"
+                    BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#181D2A}"
                     Padding="24,20"
                     Margin="0,8,0,0">
                 <Grid ColumnDefinitions="Auto,*" ColumnSpacing="20" VerticalOptions="Center">
 
                     <Border Grid.Column="0"
                             StrokeShape="RoundRectangle 18"
-                            Stroke="#3F4963"
+                            Stroke="{AppThemeBinding Light=#94A3B8, Dark=#3F4963}"
                             StrokeThickness="1.5"
-                            BackgroundColor="#11141D"
+                            BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#11141D}"
                             Padding="6"
                             VerticalOptions="Center">
                         <Image Source="academiadoze.png"
@@ -36,14 +36,14 @@
                     <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
                         <Label Text="PAINEL OPERACIONAL"
                                FontSize="11"
-                               TextColor="#38BDF8"
+                               TextColor="{AppThemeBinding Light=#0284C7, Dark=#38BDF8}"
                                FontAttributes="Bold"
                                CharacterSpacing="1.5" />
 
                         <Label Text="ACADEMIA DO ZÉ"
                                FontSize="28"
                                FontAttributes="Bold"
-                               TextColor="#FFFFFF" />
+                               TextColor="{AppThemeBinding Light=#0F172A, Dark=#FFFFFF}" />
                     </VerticalStackLayout>
                 </Grid>
             </Border>
@@ -52,7 +52,7 @@
             <Label Text="MÉTRICAS DO SISTEMA"
                    FontSize="12"
                    FontAttributes="Bold"
-                   TextColor="#6B7A99"
+                   TextColor="{AppThemeBinding Light=#64748B, Dark=#6B7A99}"
                    CharacterSpacing="1.2"
                    Margin="4,0,0,-12" />
 
@@ -65,9 +65,9 @@
                 <!-- 1. Card Logradouros -->
                 <Border Grid.Row="0" Grid.Column="0"
                         StrokeShape="RoundRectangle 16"
-                        Stroke="#0284C7"
+                        Stroke="{AppThemeBinding Light=#38BDF8, Dark=#0284C7}"
                         StrokeThickness="1.5"
-                        BackgroundColor="#161C28"
+                        BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#161C28}"
                         Padding="22">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigateToLogradourosCommand}"/>
@@ -77,37 +77,39 @@
                                Text="{Binding TotalLogradouros}" 
                                FontSize="42" 
                                FontAttributes="Bold" 
-                               TextColor="#38BDF8" />
+                               TextColor="{AppThemeBinding Light=#0284C7, Dark=#38BDF8}" />
                         <Border Grid.Row="0" Grid.Column="1" 
                                 StrokeShape="RoundRectangle 8"
-                                BackgroundColor="#0C4A6E" 
-                                Stroke="#0284C7"
+                                BackgroundColor="{AppThemeBinding Light=#E0F2FE, Dark=#0C4A6E}" 
+                                Stroke="{AppThemeBinding Light=#38BDF8, Dark=#0284C7}"
                                 StrokeThickness="1"
                                 Padding="10,4"
                                 VerticalOptions="Start">
-                            <Label Text="GERENCIAR" FontSize="10" TextColor="#38BDF8" FontAttributes="Bold" CharacterSpacing="1"/>
+                            <Label Text="GERENCIAR" FontSize="10" 
+                                   TextColor="{AppThemeBinding Light=#0284C7, Dark=#38BDF8}" 
+                                   FontAttributes="Bold" CharacterSpacing="1"/>
                         </Border>
 
                         <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
                                Text="LOGRADOUROS" 
                                FontSize="13" 
-                               TextColor="#F1F5F9" 
+                               TextColor="{AppThemeBinding Light=#0F172A, Dark=#F1F5F9}" 
                                FontAttributes="Bold" 
                                CharacterSpacing="1" 
                                Margin="0,8,0,2"/>
                         <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
                                Text="Endereços, bairros e rotas" 
                                FontSize="12" 
-                               TextColor="#8191A6"/>
+                               TextColor="{AppThemeBinding Light=#64748B, Dark=#8191A6}"/>
                     </Grid>
                 </Border>
 
                 <!-- 2. Card Alunos -->
                 <Border Grid.Row="0" Grid.Column="1"
                         StrokeShape="RoundRectangle 16"
-                        Stroke="#059669"
+                        Stroke="{AppThemeBinding Light=#10B981, Dark=#059669}"
                         StrokeThickness="1.5"
-                        BackgroundColor="#141F21"
+                        BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#141F21}"
                         Padding="22">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigateToAlunosCommand}"/>
@@ -117,37 +119,39 @@
                                Text="{Binding TotalAlunos}" 
                                FontSize="42" 
                                FontAttributes="Bold" 
-                               TextColor="#34D399" />
+                               TextColor="{AppThemeBinding Light=#059669, Dark=#34D399}" />
                         <Border Grid.Row="0" Grid.Column="1" 
                                 StrokeShape="RoundRectangle 8"
-                                BackgroundColor="#064E3B" 
-                                Stroke="#059669"
+                                BackgroundColor="{AppThemeBinding Light=#D1FAE5, Dark=#064E3B}" 
+                                Stroke="{AppThemeBinding Light=#10B981, Dark=#059669}"
                                 StrokeThickness="1"
                                 Padding="10,4"
                                 VerticalOptions="Start">
-                            <Label Text="ATIVOS" FontSize="10" TextColor="#34D399" FontAttributes="Bold" CharacterSpacing="1"/>
+                            <Label Text="ATIVOS" FontSize="10" 
+                                   TextColor="{AppThemeBinding Light=#059669, Dark=#34D399}" 
+                                   FontAttributes="Bold" CharacterSpacing="1"/>
                         </Border>
 
                         <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
                                Text="ALUNOS" 
                                FontSize="13" 
-                               TextColor="#F1F5F9" 
+                               TextColor="{AppThemeBinding Light=#0F172A, Dark=#F1F5F9}" 
                                FontAttributes="Bold" 
                                CharacterSpacing="1" 
                                Margin="0,8,0,2"/>
                         <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
                                Text="Fichas ativas e treinos" 
                                FontSize="12" 
-                               TextColor="#8191A6"/>
+                               TextColor="{AppThemeBinding Light=#64748B, Dark=#8191A6}"/>
                     </Grid>
                 </Border>
 
                 <!-- 3. Card Colaboradores -->
                 <Border Grid.Row="1" Grid.Column="0"
                         StrokeShape="RoundRectangle 16"
-                        Stroke="#8B5CF6"
+                        Stroke="{AppThemeBinding Light=#8B5CF6, Dark=#8B5CF6}"
                         StrokeThickness="1.5"
-                        BackgroundColor="#181528"
+                        BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#181528}"
                         Padding="22">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigateToColaboradoresCommand}"/>
@@ -157,37 +161,39 @@
                                Text="{Binding TotalColaboradores}" 
                                FontSize="42" 
                                FontAttributes="Bold" 
-                               TextColor="#A78BFA" />
+                               TextColor="{AppThemeBinding Light=#7C3AED, Dark=#A78BFA}" />
                         <Border Grid.Row="0" Grid.Column="1" 
                                 StrokeShape="RoundRectangle 8"
-                                BackgroundColor="#3B1D6E" 
-                                Stroke="#8B5CF6"
+                                BackgroundColor="{AppThemeBinding Light=#EDE9FE, Dark=#3B1D6E}" 
+                                Stroke="{AppThemeBinding Light=#8B5CF6, Dark=#8B5CF6}"
                                 StrokeThickness="1"
                                 Padding="10,4"
                                 VerticalOptions="Start">
-                            <Label Text="EQUIPE" FontSize="10" TextColor="#C4B5FD" FontAttributes="Bold" CharacterSpacing="1"/>
+                            <Label Text="EQUIPE" FontSize="10" 
+                                   TextColor="{AppThemeBinding Light=#7C3AED, Dark=#C4B5FD}" 
+                                   FontAttributes="Bold" CharacterSpacing="1"/>
                         </Border>
 
                         <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
                                Text="COLABORADORES" 
                                FontSize="13" 
-                               TextColor="#F1F5F9" 
+                               TextColor="{AppThemeBinding Light=#0F172A, Dark=#F1F5F9}" 
                                FontAttributes="Bold" 
                                CharacterSpacing="1" 
                                Margin="0,8,0,2"/>
                         <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
                                Text="Corpo técnico e recepção" 
                                FontSize="12" 
-                               TextColor="#8191A6"/>
+                               TextColor="{AppThemeBinding Light=#64748B, Dark=#8191A6}"/>
                     </Grid>
                 </Border>
 
                 <!-- 4. Card Matrículas -->
                 <Border Grid.Row="1" Grid.Column="1"
                         StrokeShape="RoundRectangle 16"
-                        Stroke="#D97706"
+                        Stroke="{AppThemeBinding Light=#F59E0B, Dark=#D97706}"
                         StrokeThickness="1.5"
-                        BackgroundColor="#221A15"
+                        BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#221A15}"
                         Padding="22">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding NavigateToMatriculasCommand}"/>
@@ -197,28 +203,30 @@
                                Text="{Binding TotalMatriculas}" 
                                FontSize="42" 
                                FontAttributes="Bold" 
-                               TextColor="#FBBF24" />
+                               TextColor="{AppThemeBinding Light=#D97706, Dark=#FBBF24}" />
                         <Border Grid.Row="0" Grid.Column="1" 
                                 StrokeShape="RoundRectangle 8"
-                                BackgroundColor="#78350F" 
-                                Stroke="#D97706"
+                                BackgroundColor="{AppThemeBinding Light=#FEF3C7, Dark=#78350F}" 
+                                Stroke="{AppThemeBinding Light=#F59E0B, Dark=#D97706}"
                                 StrokeThickness="1"
                                 Padding="10,4"
                                 VerticalOptions="Start">
-                            <Label Text="PLANOS" FontSize="10" TextColor="#FBBF24" FontAttributes="Bold" CharacterSpacing="1"/>
+                            <Label Text="PLANOS" FontSize="10" 
+                                   TextColor="{AppThemeBinding Light=#D97706, Dark=#FBBF24}" 
+                                   FontAttributes="Bold" CharacterSpacing="1"/>
                         </Border>
 
                         <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
                                Text="MATRÍCULAS" 
                                FontSize="13" 
-                               TextColor="#F1F5F9" 
+                               TextColor="{AppThemeBinding Light=#0F172A, Dark=#F1F5F9}" 
                                FontAttributes="Bold" 
                                CharacterSpacing="1" 
                                Margin="0,8,0,2"/>
                         <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
                                Text="Assinaturas e contratos" 
                                FontSize="12" 
-                               TextColor="#8191A6"/>
+                               TextColor="{AppThemeBinding Light=#64748B, Dark=#8191A6}"/>
                     </Grid>
                 </Border>
 
@@ -226,7 +234,7 @@
 
             <ActivityIndicator IsVisible="{Binding IsBusy}" 
                                IsRunning="{Binding IsBusy}" 
-                               Color="#38BDF8" 
+                               Color="{AppThemeBinding Light=#0284C7, Dark=#38BDF8}" 
                                HeightRequest="36" 
                                WidthRequest="36"
                                HorizontalOptions="Center" />

@@ -4,25 +4,25 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:AcademiaDoZe.Presentation.AppMaui.Views"
-    BackgroundColor="#11141C"
-    ForegroundColor="#38BDF8"
-    TitleColor="#FFFFFF"
-    FlyoutBackgroundColor="#161C28"
+    BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#11141C}"
+    ForegroundColor="{AppThemeBinding Light=#0284C7, Dark=#38BDF8}"
+    TitleColor="{AppThemeBinding Light=#0F172A, Dark=#FFFFFF}"
+    FlyoutBackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#161C28}"
     FlyoutWidth="280">
 
     <!-- Cabeçalho Estilizado do Menu Lateral -->
     <Shell.FlyoutHeader>
-        <Border BackgroundColor="#11141D"
-                Stroke="#2D3548"
+        <Border BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#11141D}"
+                Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#2D3548}"
                 StrokeThickness="1"
                 StrokeShape="RoundRectangle 0,0,16,16"
                 Padding="20,24"
                 Margin="0,0,0,12">
             <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
                 <Border StrokeShape="RoundRectangle 16"
-                        Stroke="#3F4963"
+                        Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#3F4963}"
                         StrokeThickness="1.5"
-                        BackgroundColor="#181D2A"
+                        BackgroundColor="{AppThemeBinding Light=#F1F5F9, Dark=#181D2A}"
                         Padding="6"
                         HorizontalOptions="Center">
                     <Image Source="academiadoze.png"
@@ -34,32 +34,32 @@
                 <Label Text="ACADEMIA DO ZÉ"
                        FontSize="18"
                        FontAttributes="Bold"
-                       TextColor="#FFFFFF"
+                       TextColor="{AppThemeBinding Light=#0F172A, Dark=#FFFFFF}"
                        HorizontalTextAlignment="Center"
                        CharacterSpacing="1.2" />
 
                 <Label Text="Navegação do Sistema"
                        FontSize="11"
-                       TextColor="#8E9CB2"
+                       TextColor="{AppThemeBinding Light=#64748B, Dark=#8E9CB2}"
                        HorizontalTextAlignment="Center" />
             </VerticalStackLayout>
         </Border>
     </Shell.FlyoutHeader>
 
-    <!-- Estilo para o Texto e Fundo dos Itens do Menu -->
+    <!-- Estilo para os Itens do Menu com suporte a FontImageSource -->
     <Shell.ItemTemplate>
         <DataTemplate>
-            <Grid ColumnDefinitions="48,*" HeightRequest="50" Padding="16,0">
-                <Label Grid.Column="0" 
-                       Text="✦" 
-                       TextColor="#38BDF8" 
-                       FontSize="16" 
-                       VerticalOptions="Center" 
+            <Grid ColumnDefinitions="48,*" HeightRequest="52" Padding="16,0">
+                <Image Grid.Column="0"
+                       Source="{Binding FlyoutIcon}"
+                       HeightRequest="24"
+                       WidthRequest="24"
+                       VerticalOptions="Center"
                        HorizontalOptions="Center" />
 
                 <Label Grid.Column="1"
                        Text="{Binding Title}"
-                       TextColor="#F1F5F9"
+                       TextColor="{AppThemeBinding Light=#1E293B, Dark=#F1F5F9}"
                        FontSize="15"
                        FontAttributes="Bold"
                        VerticalOptions="Center" />
@@ -69,11 +69,24 @@
 
     <!-- Rotas do Sistema -->
     <FlyoutItem Title="Dashboard" Route="dashboard">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe871;" Color="#0284C7" Size="24" />
+        </FlyoutItem.Icon>
         <ShellContent ContentTemplate="{DataTemplate views:DashboardListPage}" />
     </FlyoutItem>
 
     <FlyoutItem Title="Logradouros" Route="logradouros">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe7f1;" Color="#0284C7" Size="24" />
+        </FlyoutItem.Icon>
         <ShellContent ContentTemplate="{DataTemplate views:LogradouroListPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Configurações" Route="configuracoes">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe8b8;" Color="#0284C7" Size="24" />
+        </FlyoutItem.Icon>
+        <ShellContent ContentTemplate="{DataTemplate views:ConfigPage}" />
     </FlyoutItem>
 
 </Shell>
