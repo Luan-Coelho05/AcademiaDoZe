@@ -9,6 +9,8 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		
+		<ApplicationTitle>Academia do Zé - Luan Coelho</ApplicationTitle>
 
 		<!-- Desativa geradores XAML duplicados em segundo plano -->
 		<EnableDefaultMauiXamlItems>true</EnableDefaultMauiXamlItems>
@@ -51,6 +53,12 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\AcademiaDoZe.Application\AcademiaDoZe.Application.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\ConfigPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AcademiaDoZe.Presentation.AppMaui.Views.ConfigPage"
+             Title="Configurações"
+             BackgroundColor="{AppThemeBinding Light=#F1F5F9, Dark=#0B0E14}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="28,20" Spacing="24" MaximumWidthRequest="760" HorizontalOptions="Center">
+
+            <!-- BLOCO 1: TEMA DO SISTEMA -->
+            <Border BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#111622}"
+                    Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E2638}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 14"
+                    Padding="24,20">
+                <VerticalStackLayout Spacing="16">
+                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                        <Label Text="&#xe3ab;" FontFamily="MaterialIcons" FontSize="20" TextColor="#0284C7" VerticalOptions="Center" />
+                        <Label Text="Aparência e Tema" FontSize="16" FontAttributes="Bold" 
+                               TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Tema Selecionado" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" FontSize="13" FontAttributes="Bold" />
+                        <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#182030}" 
+                                Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#2A3449}" 
+                                StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="12,0" HeightRequest="44">
+                            <Picker x:Name="TemaPicker"
+                                    TextColor="{AppThemeBinding Light=#0F172A, Dark=#FFFFFF}"
+                                    BackgroundColor="Transparent"
+                                    VerticalOptions="Center">
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:String}">
+                                        <x:String>light</x:String>
+                                        <x:String>dark</x:String>
+                                        <x:String>system</x:String>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+                            </Picker>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="12" Margin="0,8,0,0">
+                        <Button Grid.Column="0" Text="Cancelar" Clicked="OnCancelarClicked" 
+                                TextColor="{AppThemeBinding Light=#334155, Dark=#94A3B8}" 
+                                BackgroundColor="{AppThemeBinding Light=#E2E8F0, Dark=#1E2638}" 
+                                CornerRadius="8" HeightRequest="44" FontAttributes="Bold" />
+                        <Button Grid.Column="1" Text="Salvar Tema" Clicked="OnSalvarTemaClicked" 
+                                TextColor="#FFFFFF" BackgroundColor="#0284C7" CornerRadius="8" HeightRequest="44" FontAttributes="Bold" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- BLOCO 2: CREDENCIAIS DO BANCO DE DADOS -->
+            <Border BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#111622}"
+                    Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E2638}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 14"
+                    Padding="24,20">
+                <VerticalStackLayout Spacing="16">
+                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                        <Label Text="&#xe1db;" FontFamily="MaterialIcons" FontSize="20" TextColor="#0284C7" VerticalOptions="Center" />
+                        <Label Text="Credenciais do Banco de Dados" FontSize="16" FontAttributes="Bold" 
+                               TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Tipo de Gerenciador" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" FontSize="13" FontAttributes="Bold" />
+                        <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#182030}" 
+                                Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#2A3449}" 
+                                StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="12,0" HeightRequest="44">
+                            <Picker x:Name="DatabaseTypePicker"
+                                    SelectedIndexChanged="OnDatabaseTypeChanged"
+                                    TextColor="{AppThemeBinding Light=#0F172A, Dark=#FFFFFF}"
+                                    BackgroundColor="Transparent"
+                                    VerticalOptions="Center" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Mensagem Informativa SQLite -->
+                    <Border x:Name="SqliteInfoCard" IsVisible="False" 
+                            BackgroundColor="{AppThemeBinding Light=#EFF6FF, Dark=#162235}" 
+                            Stroke="{AppThemeBinding Light=#BFDBFE, Dark=#1E3A8A}" 
+                            StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="14">
+                        <Label Text="O SQLite é um banco de dados local em arquivo. Não requer servidor de rede, usuário ou senha." 
+                               TextColor="{AppThemeBinding Light=#1D4ED8, Dark=#60A5FA}" FontSize="13" />
+                    </Border>
+
+                    <!-- Container SQLite -->
+                    <VerticalStackLayout x:Name="SqliteContainer" Spacing="6" IsVisible="False">
+                        <Label Text="Caminho do Arquivo (.db)" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" FontSize="13" FontAttributes="Bold" />
+                        <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#182030}" 
+                                Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#2A3449}" 
+                                StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="12,0" HeightRequest="44">
+                            <Entry x:Name="SqliteCaminhoEntry" 
+                                   Placeholder="Ex: C:\DEV\AcademiaDoZe\db_academia_do_ze.db" 
+                                   PlaceholderColor="{AppThemeBinding Light=#94A3B8, Dark=#475569}" 
+                                   TextColor="{AppThemeBinding Light=#0F172A, Dark=#FFFFFF}" 
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Container Servidor e Banco (SQL Server e MySQL) -->
+                    <Grid x:Name="ServidorBancoGrid" ColumnDefinitions="*, *" ColumnSpacing="12">
+                        <VerticalStackLayout Grid.Column="0" Spacing="6">
+                            <Label Text="Servidor" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" FontSize="13" FontAttributes="Bold" />
+                            <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#182030}" 
+                                    Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#2A3449}" 
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="12,0" HeightRequest="44">
+                                <Entry x:Name="ServidorEntry" Placeholder="Ex: 172.24.32.1 ou localhost" 
+                                       PlaceholderColor="{AppThemeBinding Light=#94A3B8, Dark=#475569}" 
+                                       TextColor="{AppThemeBinding Light=#0F172A, Dark=#FFFFFF}" VerticalOptions="Center" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="6">
+                            <Label Text="Nome do Banco" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" FontSize="13" FontAttributes="Bold" />
+                            <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#182030}" 
+                                    Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#2A3449}" 
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="12,0" HeightRequest="44">
+                                <Entry x:Name="BancoEntry" Placeholder="db_academia_do_ze" 
+                                       PlaceholderColor="{AppThemeBinding Light=#94A3B8, Dark=#475569}" 
+                                       TextColor="{AppThemeBinding Light=#0F172A, Dark=#FFFFFF}" VerticalOptions="Center" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- Credenciais (SQL Server e MySQL) -->
+                    <Grid x:Name="CredenciaisGrid" ColumnDefinitions="*, *" ColumnSpacing="12">
+                        <VerticalStackLayout Grid.Column="0" Spacing="6">
+                            <Label Text="Usuário" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" FontSize="13" FontAttributes="Bold" />
+                            <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#182030}" 
+                                    Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#2A3449}" 
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="12,0" HeightRequest="44">
+                                <Entry x:Name="UsuarioEntry" Placeholder="sa ou root" 
+                                       PlaceholderColor="{AppThemeBinding Light=#94A3B8, Dark=#475569}" 
+                                       TextColor="{AppThemeBinding Light=#0F172A, Dark=#FFFFFF}" VerticalOptions="Center" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="6">
+                            <Label Text="Senha" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" FontSize="13" FontAttributes="Bold" />
+                            <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#182030}" 
+                                    Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#2A3449}" 
+                                    StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="12,0" HeightRequest="44">
+                                <Entry x:Name="SenhaEntry" IsPassword="True" Placeholder="••••••••" 
+                                       PlaceholderColor="{AppThemeBinding Light=#94A3B8, Dark=#475569}" 
+                                       TextColor="{AppThemeBinding Light=#0F172A, Dark=#FFFFFF}" VerticalOptions="Center" />
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- Complemento -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label x:Name="ComplementoLabel" Text="Complemento" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" FontSize="13" FontAttributes="Bold" />
+                        <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#182030}" 
+                                Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#2A3449}" 
+                                StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="12,0" HeightRequest="44">
+                            <Entry x:Name="ComplementoEntry" Placeholder="Parâmetros de conexão..." 
+                                   PlaceholderColor="{AppThemeBinding Light=#94A3B8, Dark=#475569}" 
+                                   TextColor="{AppThemeBinding Light=#0F172A, Dark=#FFFFFF}" VerticalOptions="Center" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Grid ColumnDefinitions="*, *" ColumnSpacing="12" Margin="0,8,0,0">
+                        <Button Grid.Column="0" Text="Cancelar" Clicked="OnCancelarClicked" 
+                                TextColor="{AppThemeBinding Light=#334155, Dark=#94A3B8}" 
+                                BackgroundColor="{AppThemeBinding Light=#E2E8F0, Dark=#1E2638}" 
+                                CornerRadius="8" HeightRequest="44" FontAttributes="Bold" />
+                        <Button Grid.Column="1" Text="Salvar BD" Clicked="OnSalvarBdClicked" 
+                                TextColor="#FFFFFF" BackgroundColor="#0284C7" CornerRadius="8" HeightRequest="44" FontAttributes="Bold" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
