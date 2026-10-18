@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AcademiaDoZe.Presentation.AppMaui.Views.ColaboradorPage"
+             xmlns:vm="clr-namespace:AcademiaDoZe.Presentation.AppMaui.ViewModels"
+             xmlns:enums="clr-namespace:AcademiaDoZe.Application.Enums;assembly=AcademiaDoZe.Application"
+             xmlns:converters="clr-namespace:AcademiaDoZe.Presentation.AppMaui.Converters"
+             x:DataType="vm:ColaboradorViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="{AppThemeBinding Light=#F4F6F9, Dark=#080D14}">
+
+    <ContentPage.Resources>
+        <converters:FotoToImageSourceConverter x:Key="FotoToImageSourceConverter" />
+        <converters:DateOnlyToDateTimeConverter x:Key="DateOnlyConverter" />
+        <converters:EnumDisplayConverter x:Key="EnumDisplay" />
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="20" MaximumWidthRequest="580" HorizontalOptions="Fill">
+
+            <!-- Seção CPF -->
+            <Border BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#111827}"
+                    Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#1E293B}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12" Padding="18">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="CPF" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"/>
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                        <Border Grid.Column="0"
+                                BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0B0F19}"
+                                Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E293B}"
+                                StrokeShape="RoundRectangle 8" Padding="10,0">
+                            <Entry Text="{Binding Colaborador.Cpf}"
+                                   Placeholder="000.000.000-00"
+                                   PlaceholderColor="{AppThemeBinding Light=#94A3B8, Dark=#64748B}"
+                                   TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"
+                                   Keyboard="Numeric" MaxLength="14"
+                                   ClearButtonVisibility="WhileEditing"
+                                   ReturnCommand="{Binding SearchByCpfCommand}"/>
+                        </Border>
+                        <Button Grid.Column="1"
+                                Text="Buscar CPF"
+                                Command="{Binding SearchByCpfCommand}"
+                                BackgroundColor="#0284C7"
+                                TextColor="#FFFFFF"
+                                FontAttributes="Bold"
+                                CornerRadius="8"
+                                HeightRequest="42"
+                                Padding="18,0"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Dados Pessoais -->
+            <Border BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#111827}"
+                    Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#1E293B}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12" Padding="18">
+                <VerticalStackLayout Spacing="14">
+                    <Border BackgroundColor="{AppThemeBinding Light=#E0F2FE, Dark=#0F2942}"
+                            Stroke="{AppThemeBinding Light=#BAE6FD, Dark=#1E3A5F}"
+                            StrokeShape="RoundRectangle 8" Padding="14,6" HorizontalOptions="Center"
+                            IsVisible="{Binding IsEditMode}">
+                        <Label Text="{Binding Colaborador.Id, StringFormat='Colaborador ID: {0}'}"
+                               TextColor="{AppThemeBinding Light=#0284C7, Dark=#38BDF8}" FontAttributes="Bold"/>
+                    </Border>
+
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Nome Completo" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"/>
+                        <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0B0F19}"
+                                Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E293B}"
+                                StrokeShape="RoundRectangle 8" Padding="10,0">
+                            <Entry Text="{Binding Colaborador.Nome}" Placeholder="Digite o nome completo..." MaxLength="150" ClearButtonVisibility="WhileEditing"/>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                        <VerticalStackLayout Grid.Column="0" Spacing="5">
+                            <Label Text="Data de Nascimento" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"/>
+                            <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0B0F19}"
+                                    Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E293B}"
+                                    StrokeShape="RoundRectangle 8" Padding="10,0">
+                                <DatePicker Date="{Binding Colaborador.DataNascimento, Converter={StaticResource DateOnlyConverter}, Mode=TwoWay}" Format="dd/MM/yyyy"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="5">
+                            <Label Text="Telefone (com DDD)" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"/>
+                            <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0B0F19}"
+                                    Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E293B}"
+                                    StrokeShape="RoundRectangle 8" Padding="10,0">
+                                <Entry Text="{Binding Colaborador.Telefone}" Placeholder="(49) 99999-9999" Keyboard="Telephone" MaxLength="15" ClearButtonVisibility="WhileEditing"/>
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="E-mail" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"/>
+                        <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0B0F19}"
+                                Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E293B}"
+                                StrokeShape="RoundRectangle 8" Padding="10,0">
+                            <Entry Text="{Binding Colaborador.Email}" Placeholder="exemplo@email.com" Keyboard="Email" MaxLength="100" ClearButtonVisibility="WhileEditing"/>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                        <VerticalStackLayout Grid.Column="0" Spacing="5">
+                            <Label Text="Senha" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"/>
+                            <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0B0F19}"
+                                    Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E293B}"
+                                    StrokeShape="RoundRectangle 8" Padding="10,0">
+                                <Entry Text="{Binding Colaborador.Senha}" Placeholder="Mín. 6 chars + 1 Maiúscula" IsPassword="True" MaxLength="50"/>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="5">
+                            <Label Text="Confirmar Senha" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"/>
+                            <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0B0F19}"
+                                    Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E293B}"
+                                    StrokeShape="RoundRectangle 8" Padding="10,0">
+                                <Entry Text="{Binding ConfirmarSenha}" Placeholder="Confirme a senha..." IsPassword="True" MaxLength="50"/>
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+                    <Label Text="* Na edição, deixe a senha em branco para manter a atual." FontSize="11" TextColor="{AppThemeBinding Light=#64748B, Dark=#94A3B8}" IsVisible="{Binding IsEditMode}"/>
+
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center" Margin="0,8,0,0">
+                        <Label Text="Foto do Colaborador" FontAttributes="Bold" HorizontalOptions="Center" TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"/>
+                        <Border StrokeShape="RoundRectangle 12" HeightRequest="130" WidthRequest="130"
+                                Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E293B}"
+                                BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0B0F19}">
+                            <Image Source="{Binding Colaborador.Foto, Converter={StaticResource FotoToImageSourceConverter}}" Aspect="AspectFill" HeightRequest="130" WidthRequest="130"/>
+                        </Border>
+                        <Button Text="Selecionar / Tirar Foto"
+                                Command="{Binding SelecionarFotoCommand}"
+                                BackgroundColor="#0284C7"
+                                TextColor="#FFFFFF"
+                                FontAttributes="Bold"
+                                CornerRadius="8"
+                                HeightRequest="42"
+                                Padding="20,0"/>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Endereço -->
+            <Border BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#111827}"
+                    Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#1E293B}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12" Padding="18">
+                <VerticalStackLayout Spacing="14">
+                    <Label Text="Endereço" FontAttributes="Bold" FontSize="16" TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"/>
+
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                        <Border Grid.Column="0"
+                                BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0B0F19}"
+                                Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E293B}"
+                                StrokeShape="RoundRectangle 8" Padding="10,0">
+                            <Entry Text="{Binding Colaborador.Endereco.Cep}" Placeholder="00000-000" Keyboard="Numeric" MaxLength="9" ClearButtonVisibility="WhileEditing" ReturnCommand="{Binding SearchByCepCommand}"/>
+                        </Border>
+                        <Button Grid.Column="1"
+                                Text="Buscar CEP"
+                                Command="{Binding SearchByCepCommand}"
+                                BackgroundColor="#0284C7"
+                                TextColor="#FFFFFF"
+                                FontAttributes="Bold"
+                                CornerRadius="8"
+                                HeightRequest="42"
+                                Padding="18,0"/>
+                    </Grid>
+
+                    <Border Padding="12" StrokeShape="RoundRectangle 8" BackgroundColor="{AppThemeBinding Light=#FEF3C7, Dark=#332701}" IsVisible="{Binding HasNoEnderecoVinculado}">
+                        <Label Text="Nenhum logradouro vinculado. Digite um CEP cadastrado acima e clique em 'Buscar CEP'."
+                               TextColor="{AppThemeBinding Light=#92400E, Dark=#FCD34D}" FontSize="13"/>
+                    </Border>
+
+                    <Border Padding="12" StrokeShape="RoundRectangle 8" BackgroundColor="{AppThemeBinding Light=#F0FDF4, Dark=#052E16}" Stroke="#16A34A" IsVisible="{Binding HasEnderecoVinculado}">
+                        <VerticalStackLayout Spacing="3">
+                            <Label Text="✓ Logradouro Vinculado" FontAttributes="Bold" TextColor="#16A34A" FontSize="14"/>
+                            <Label Text="{Binding Colaborador.Endereco.Nome, StringFormat='Rua: {0}'}" FontSize="13"/>
+                            <Label Text="{Binding Colaborador.Endereco.Bairro, StringFormat='Bairro: {0}'}" FontSize="13"/>
+                            <Label Text="{Binding Colaborador.Endereco.Cidade, StringFormat='Cidade: {0}'}" FontSize="13"/>
+                            <Label Text="{Binding Colaborador.Endereco.Estado, StringFormat='UF: {0}'}" FontSize="13"/>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Grid ColumnDefinitions="*,2*" ColumnSpacing="12">
+                        <VerticalStackLayout Grid.Column="0" Spacing="5">
+                            <Label Text="Número" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"/>
+                            <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0B0F19}"
+                                    Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E293B}"
+                                    StrokeShape="RoundRectangle 8" Padding="10,0">
+                                <Entry Text="{Binding Colaborador.Numero}" Placeholder="Nº" MaxLength="20"/>
+                            </Border>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1" Spacing="5">
+                            <Label Text="Complemento" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"/>
+                            <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0B0F19}"
+                                    Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E293B}"
+                                    StrokeShape="RoundRectangle 8" Padding="10,0">
+                                <Entry Text="{Binding Colaborador.Complemento}" Placeholder="Opcional" MaxLength="50"/>
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Dados de Trabalho -->
+            <Border BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#111827}"
+                    Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#1E293B}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12" Padding="18">
+                <VerticalStackLayout Spacing="14">
+                    <Label Text="Dados de Trabalho" FontAttributes="Bold" FontSize="16" TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"/>
+
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Data de Admissão" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"/>
+                        <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0B0F19}"
+                                Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E293B}"
+                                StrokeShape="RoundRectangle 8" Padding="10,0">
+                            <DatePicker Date="{Binding Colaborador.DataAdmissao, Converter={StaticResource DateOnlyConverter}, Mode=TwoWay}" Format="dd/MM/yyyy"/>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                        <VerticalStackLayout Grid.Column="0" Spacing="5">
+                            <Label Text="Cargo / Tipo" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"/>
+                            <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0B0F19}"
+                                    Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E293B}"
+                                    StrokeShape="RoundRectangle 8" Padding="10,0">
+                                <Picker ItemsSource="{Binding ColaboradorTipos}" SelectedItem="{Binding Colaborador.Tipo}">
+                                    <Picker.ItemDisplayBinding>
+                                        <Binding Converter="{StaticResource EnumDisplay}" />
+                                    </Picker.ItemDisplayBinding>
+                                </Picker>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="5">
+                            <Label Text="Vínculo" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"/>
+                            <Border BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0B0F19}"
+                                    Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E293B}"
+                                    StrokeShape="RoundRectangle 8" Padding="10,0">
+                                <Picker ItemsSource="{Binding ColaboradorVinculos}" SelectedItem="{Binding Colaborador.Vinculo}">
+                                    <Picker.ItemDisplayBinding>
+                                        <Binding Converter="{StaticResource EnumDisplay}" />
+                                    </Picker.ItemDisplayBinding>
+                                </Picker>
+                            </Border>
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Botões Cancelar e Salvar idênticos a LogradouroPage -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,4,0,20">
+                <Button Grid.Column="0"
+                        Text="Cancelar"
+                        Command="{Binding CancelCommand}"
+                        BackgroundColor="{AppThemeBinding Light=#E2E8F0, Dark=#1E293B}"
+                        TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}"
+                        BorderColor="{AppThemeBinding Light=#CBD5E1, Dark=#334155}"
+                        BorderWidth="1"
+                        FontAttributes="Bold"
+                        CornerRadius="8"
+                        HeightRequest="46"/>
+
+                <Button Grid.Column="1"
+                        Text="Salvar"
+                        Command="{Binding SaveColaboradorCommand}"
+                        BackgroundColor="#0284C7"
+                        TextColor="#FFFFFF"
+                        FontAttributes="Bold"
+                        CornerRadius="8"
+                        HeightRequest="46"/>
+            </Grid>
+
+            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="#0284C7" VerticalOptions="Center" HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

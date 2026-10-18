@@ -89,4 +89,18 @@
         <ShellContent ContentTemplate="{DataTemplate views:ConfigPage}" />
     </FlyoutItem>
 
+    <FlyoutItem Title="Colaboradores">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xea67;" Color="{AppThemeBinding Light=#0284C7, Dark=#38BDF8}" />
+        </FlyoutItem.Icon>
+        <ShellContent ContentTemplate="{DataTemplate views:ColaboradorListPage}" Route="colaboradores" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Alunos">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe7fd;" Color="{AppThemeBinding Light=#0284C7, Dark=#38BDF8}" />
+        </FlyoutItem.Icon>
+        <ShellContent ContentTemplate="{DataTemplate views:AlunoListPage}" Route="alunos" />
+    </FlyoutItem>
+
 </Shell>

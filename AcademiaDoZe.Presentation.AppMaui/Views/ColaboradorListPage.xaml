@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AcademiaDoZe.Presentation.AppMaui.Views.ColaboradorListPage"
+             xmlns:vm="clr-namespace:AcademiaDoZe.Presentation.AppMaui.ViewModels"
+             x:DataType="vm:ColaboradorListViewModel"
+             xmlns:dto="clr-namespace:AcademiaDoZe.Application.DTOs;assembly=AcademiaDoZe.Application"
+             xmlns:converters="clr-namespace:AcademiaDoZe.Presentation.AppMaui.Converters"
+             Title="{Binding Title}"
+             BackgroundColor="{AppThemeBinding Light=#F4F6F9, Dark=#080D14}">
+
+    <ContentPage.Resources>
+        <converters:FotoToImageSourceConverter x:Key="FotoToImageSourceConverter" />
+        <converters:EnumDisplayConverter x:Key="EnumDisplay" />
+
+        <DataTemplate x:Key="ColaboradorItemTemplate" x:DataType="dto:ColaboradorDto">
+            <Grid Padding="4" Margin="4">
+                <Border BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#111827}"
+                        Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#1E293B}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="16">
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                          ColumnDefinitions="*,Auto,Auto"
+                          ColumnSpacing="8">
+
+                        <!-- Foto com OnIdiom -->
+                        <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="8"
+                                StrokeShape="RoundRectangle 10"
+                                Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#1E293B}"
+                                BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0B0F19}"
+                                VerticalOptions="Start"
+                                Margin="0,10,0,0">
+                            <Image Source="{Binding Foto, Converter={StaticResource FotoToImageSourceConverter}}"
+                                   Aspect="AspectFill">
+                                <Image.HeightRequest>
+                                    <OnIdiom x:TypeArguments="x:Double">
+                                        <OnIdiom.Phone>100</OnIdiom.Phone>
+                                        <OnIdiom.Tablet>115</OnIdiom.Tablet>
+                                        <OnIdiom.Desktop>115</OnIdiom.Desktop>
+                                        <OnIdiom.TV>130</OnIdiom.TV>
+                                        <OnIdiom.Default>100</OnIdiom.Default>
+                                    </OnIdiom>
+                                </Image.HeightRequest>
+                                <Image.WidthRequest>
+                                    <OnIdiom x:TypeArguments="x:Double">
+                                        <OnIdiom.Phone>100</OnIdiom.Phone>
+                                        <OnIdiom.Tablet>115</OnIdiom.Tablet>
+                                        <OnIdiom.Desktop>115</OnIdiom.Desktop>
+                                        <OnIdiom.TV>130</OnIdiom.TV>
+                                        <OnIdiom.Default>100</OnIdiom.Default>
+                                    </OnIdiom>
+                                </Image.WidthRequest>
+                            </Image>
+                        </Border>
+
+                        <Label Grid.Row="0" Grid.Column="0" Text="{Binding Nome}" FontAttributes="Bold" FontSize="17" TextColor="{AppThemeBinding Light=#0284C7, Dark=#38BDF8}" VerticalOptions="Center" Margin="0,0,0,4"/>
+                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding Cpf, StringFormat='CPF: {0}'}" FontSize="13" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#1E293B, Dark=#F8FAFC}" Margin="0,0,0,2"/>
+                        <Label Grid.Row="2" Grid.Column="0" Text="{Binding Telefone, StringFormat='Tel: {0}'}" FontSize="13" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" Margin="0,0,0,2"/>
+                        <Label Grid.Row="3" Grid.Column="0" Text="{Binding Email, StringFormat='E-mail: {0}'}" FontSize="13" TextColor="{AppThemeBinding Light=#475569, Dark=#94A3B8}" Margin="0,0,0,2"/>
+                        <Label Grid.Row="4" Grid.Column="0" Text="{Binding DataNascimento, StringFormat='Nascimento: {0:dd/MM/yyyy}'}" FontSize="12" TextColor="{AppThemeBinding Light=#64748B, Dark=#94A3B8}" Margin="0,0,0,2"/>
+                        <Label Grid.Row="5" Grid.Column="0" Text="{Binding DataAdmissao, StringFormat='Admissão: {0:dd/MM/yyyy}'}" FontSize="12" TextColor="{AppThemeBinding Light=#64748B, Dark=#94A3B8}" Margin="0,0,0,2"/>
+                        <Label Grid.Row="6" Grid.Column="0" Text="{Binding Tipo, Converter={StaticResource EnumDisplay}, StringFormat='Cargo: {0}'}" FontAttributes="Bold" FontSize="12" TextColor="{AppThemeBinding Light=#0F172A, Dark=#E2E8F0}" Margin="0,0,0,2"/>
+                        <Label Grid.Row="7" Grid.Column="0" Text="{Binding Vinculo, Converter={StaticResource EnumDisplay}, StringFormat='Vínculo: {0}'}" FontSize="12" TextColor="{AppThemeBinding Light=#475569, Dark=#CBD5E1}" Margin="0,0,0,4"/>
+
+                        <Label Grid.Row="8" Grid.Column="0" FontSize="12" TextColor="{AppThemeBinding Light=#64748B, Dark=#94A3B8}" Margin="0,0,0,2">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding Endereco.Nome}"/>
+                                    <Span Text=", "/>
+                                    <Span Text="{Binding Numero}"/>
+                                    <Span Text=" - "/>
+                                    <Span Text="{Binding Endereco.Bairro}"/>
+                                    <Span Text=", "/>
+                                    <Span Text="{Binding Endereco.Cidade}"/>
+                                    <Span Text="/"/>
+                                    <Span Text="{Binding Endereco.Estado}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label Grid.Row="9" Grid.Column="0" Text="{Binding Complemento, StringFormat='Compl: {0}'}" FontSize="12" TextColor="{AppThemeBinding Light=#64748B, Dark=#94A3B8}"/>
+
+                        <!-- Botão Editar no mesmo estilo de Logradouros -->
+                        <Button Grid.Row="0" Grid.Column="1"
+                                Text="Editar"
+                                Clicked="OnEditButtonClicked"
+                                BackgroundColor="{AppThemeBinding Light=#E0F2FE, Dark=#0F2942}"
+                                TextColor="{AppThemeBinding Light=#0284C7, Dark=#38BDF8}"
+                                BorderColor="{AppThemeBinding Light=#BAE6FD, Dark=#1E3A5F}"
+                                BorderWidth="1"
+                                CornerRadius="8"
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HeightRequest="34"
+                                Padding="12,0" />
+
+                        <!-- Botão Excluir no mesmo estilo de Logradouros -->
+                        <Button Grid.Row="0" Grid.Column="2"
+                                Text="Excluir"
+                                Clicked="OnDeleteButtonClicked"
+                                BackgroundColor="{AppThemeBinding Light=#FEE2E2, Dark=#2D1215}"
+                                TextColor="{AppThemeBinding Light=#EF4444, Dark=#F87171}"
+                                BorderColor="{AppThemeBinding Light=#FECACA, Dark=#451A1F}"
+                                BorderWidth="1"
+                                CornerRadius="8"
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HeightRequest="34"
+                                Padding="12,0" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </DataTemplate>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,*">
+        <!-- Barra de Pesquisa Idêntica a Logradouros -->
+        <Border Grid.Row="0"
+                BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#111827}"
+                Stroke="{AppThemeBinding Light=#E2E8F0, Dark=#1E293B}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 12"
+                Margin="15,12" Padding="12,10">
+            <Grid ColumnDefinitions="Auto,10,*,10,Auto" VerticalOptions="Center">
+                <Border Grid.Column="0"
+                        BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0B0F19}"
+                        Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E293B}"
+                        StrokeShape="RoundRectangle 8"
+                        Padding="8,0">
+                    <Picker ItemsSource="{Binding FilterTypes}"
+                            SelectedItem="{Binding SelectedFilterType}"
+                            TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"
+                            WidthRequest="115"
+                            HeightRequest="40"
+                            VerticalOptions="Center"/>
+                </Border>
+
+                <Border Grid.Column="2"
+                        BackgroundColor="{AppThemeBinding Light=#F8FAFC, Dark=#0B0F19}"
+                        Stroke="{AppThemeBinding Light=#CBD5E1, Dark=#1E293B}"
+                        StrokeShape="RoundRectangle 8"
+                        Padding="10,0">
+                    <Entry Text="{Binding SearchText}"
+                           Placeholder="Digite o termo para buscar..."
+                           PlaceholderColor="{AppThemeBinding Light=#94A3B8, Dark=#64748B}"
+                           TextColor="{AppThemeBinding Light=#0F172A, Dark=#F8FAFC}"
+                           BackgroundColor="Transparent"
+                           HeightRequest="40"
+                           VerticalOptions="Center"
+                           ClearButtonVisibility="WhileEditing"
+                           ReturnCommand="{Binding SearchColaboradoresCommand}" />
+                </Border>
+
+                <Button Grid.Column="4"
+                        Text="Buscar"
+                        Command="{Binding SearchColaboradoresCommand}"
+                        BackgroundColor="#0284C7"
+                        TextColor="#FFFFFF"
+                        FontAttributes="Bold"
+                        CornerRadius="8"
+                        HeightRequest="40"
+                        Padding="20,0"/>
+            </Grid>
+        </Border>
+
+        <!-- Lista Responsiva com OnIdiom + Botão Flutuante (+) -->
+        <Grid Grid.Row="1">
+            <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
+                <CollectionView ItemsSource="{Binding Colaboradores}" SelectionMode="None" Margin="10,0,10,10">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical">
+                            <GridItemsLayout.Span>
+                                <OnIdiom x:TypeArguments="x:Int32">
+                                    <OnIdiom.Phone>1</OnIdiom.Phone>
+                                    <OnIdiom.Default>1</OnIdiom.Default>
+                                    <OnIdiom.Tablet>2</OnIdiom.Tablet>
+                                    <OnIdiom.Desktop>3</OnIdiom.Desktop>
+                                    <OnIdiom.TV>4</OnIdiom.TV>
+                                </OnIdiom>
+                            </GridItemsLayout.Span>
+                        </GridItemsLayout>
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.EmptyView>
+                        <StackLayout VerticalOptions="Center" Spacing="12" Padding="30">
+                            <Label Text="Nenhum colaborador encontrado"
+                                   HorizontalOptions="Center"
+                                   TextColor="{AppThemeBinding Light=#64748B, Dark=#94A3B8}"
+                                   FontSize="16"/>
+                            <Button Text="Adicionar Primeiro Colaborador"
+                                    Command="{Binding AddColaboradorCommand}"
+                                    BackgroundColor="#0284C7"
+                                    TextColor="#FFFFFF"
+                                    FontAttributes="Bold"
+                                    CornerRadius="8"
+                                    WidthRequest="260"
+                                    HeightRequest="46"
+                                    HorizontalOptions="Center"/>
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <StaticResource Key="ColaboradorItemTemplate" />
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+
+            <!-- Botão Flutuante (+) Azul igual a Logradouros -->
+            <Button Text="+"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    Command="{Binding AddColaboradorCommand}"
+                    BackgroundColor="#0284C7"
+                    TextColor="#FFFFFF"
+                    WidthRequest="56"
+                    HeightRequest="56"
+                    CornerRadius="28"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    Margin="24">
+                <Button.Shadow>
+                    <Shadow Brush="Black" Offset="0,4" Radius="8" Opacity="0.35"/>
+                </Button.Shadow>
+            </Button>
+        </Grid>
+
+        <ActivityIndicator Grid.Row="0" Grid.RowSpan="2"
+                           IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"
+                           Color="#0284C7"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
+    </Grid>
+</ContentPage>
