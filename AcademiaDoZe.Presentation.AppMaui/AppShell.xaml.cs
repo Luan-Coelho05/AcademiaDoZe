@@ -1,5 +1,4 @@
-﻿
-// Luan Coelho 
+﻿// Luan Coelho
 
 using AcademiaDoZe.Presentation.AppMaui.Views;
 
@@ -11,7 +10,9 @@ public partial class AppShell : Shell
     {
         InitializeComponent();
 
-        // Registra a rota da tela de formulário (cadastro e edição)
+        // Registra as rotas das telas de formulário (cadastro e edição)
         Routing.RegisterRoute("logradouro", typeof(LogradouroPage));
+        Routing.RegisterRoute("colaborador", typeof(ColaboradorPage));
+        Routing.RegisterRoute("aluno", typeof(AlunoPage));
     }
 }
