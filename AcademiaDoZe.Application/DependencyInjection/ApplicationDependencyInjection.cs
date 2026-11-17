@@ -1,6 +1,4 @@
-﻿
-// Luan Coelho 
-
+﻿// Luan Coelho 
 using AcademiaDoZe.Application.Interfaces;
 using AcademiaDoZe.Application.Services;
 using AcademiaDoZe.Domain.Repositories;
@@ -18,10 +16,7 @@ public static class ApplicationDependencyInjection
         services.AddTransient<IColaboradorService, ColaboradorService>();
         services.AddTransient<IAlunoService, AlunoService>();
         services.AddTransient<IMatriculaService, MatriculaService>();
-
-        // (Observação: AcessoAluno e AcessoColaborador pertencerão à Avaliação 03)
-        // services.AddTransient<IAcessoAlunoService, AcessoAlunoService>();
-        // services.AddTransient<IAcessoColaboradorService, AcessoColaboradorService>();
+        services.AddTransient<IAcessoService, AcessoService>(); // <-- REGISTRO DO SERVIÇO DA CATRACA
 
         // Registra as fábricas Func<IRepo> para criar instâncias sob demanda nos services
         services.AddTransient(provider =>
@@ -48,19 +43,18 @@ public static class ApplicationDependencyInjection
             return (Func<IMatriculaRepository>)(() => new MatriculaRepository(config.ConnectionString, config.DatabaseType));
         });
 
-        /* Para Avaliação 03:
+        // <-- REGISTRO DO REPOSITÓRIO DA CATRACA (Suporta tanto Func<IAcessoRepository> quanto IAcessoRepository direto)
         services.AddTransient(provider =>
         {
             var config = provider.GetRequiredService<RepositoryConfig>();
-            return (Func<IAcessoAlunoRepository>)(() => new AcessoAlunoRepository(config.ConnectionString, config.DatabaseType));
+            return (Func<IAcessoRepository>)(() => new AcessoRepository(config.ConnectionString, config.DatabaseType));
         });
 
-        services.AddTransient(provider =>
+        services.AddTransient<IAcessoRepository>(provider =>
         {
             var config = provider.GetRequiredService<RepositoryConfig>();
-            return (Func<IAcessoColaboradorRepository>)(() => new AcessoColaboradorRepository(config.ConnectionString, config.DatabaseType));
+            return new AcessoRepository(config.ConnectionString, config.DatabaseType);
         });
-        */
 
         return services;
     }

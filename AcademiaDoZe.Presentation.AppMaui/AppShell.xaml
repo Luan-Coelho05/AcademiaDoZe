@@ -110,4 +110,11 @@
         <ShellContent ContentTemplate="{DataTemplate views:MatriculaListPage}" Route="matriculas" />
     </FlyoutItem>
 
+    <FlyoutItem Title="Acesso (Catraca)">
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="MaterialIcons" Glyph="&#xe877;" />
+        </FlyoutItem.Icon>
+        <ShellContent ContentTemplate="{DataTemplate views:ControleAcessoPage}" Route="acesso" />
+    </FlyoutItem>
+
 </Shell>
