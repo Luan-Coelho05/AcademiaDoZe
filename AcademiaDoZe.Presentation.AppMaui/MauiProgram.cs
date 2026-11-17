@@ -1,4 +1,8 @@
 ﻿// Luan Coelho
+using AcademiaDoZe.Application.Interfaces;
+using AcademiaDoZe.Application.Services;
+using AcademiaDoZe.Domain.Repositories;
+using AcademiaDoZe.Infrastructure.Repositories;
 using AcademiaDoZe.Presentation.AppMaui.Configuration;
 using AcademiaDoZe.Presentation.AppMaui.ViewModels;
 using AcademiaDoZe.Presentation.AppMaui.Views;
@@ -51,8 +55,28 @@ public static class MauiProgram
 
         builder.Services.AddTransient<MatriculaListPage>();
         builder.Services.AddTransient<MatriculaPage>();
+        builder.Services.AddScoped<IAcessoRepository, AcessoRepository>();
+        builder.Services.AddScoped<IAcessoService, AcessoService>();
+
+        builder.Services.AddTransient<ControleAcessoViewModel>();
+        builder.Services.AddTransient<ControleAcessoPage>();
+
+        //
+
+        // Registos dos Serviços (verifique se não falta o IAcessoService)
+        builder.Services.AddScoped<IAlunoService, AlunoService>();
+        builder.Services.AddScoped<IColaboradorService, ColaboradorService>();
+        builder.Services.AddScoped<IMatriculaService, MatriculaService>();
+        builder.Services.AddScoped<IAcessoService, AcessoService>(); // <- TEM DE ESTAR AQUI!
+
+        // Registos da Página e ViewModel
+        builder.Services.AddTransient<ControleAcessoViewModel>();
+        builder.Services.AddTransient<ControleAcessoPage>();
 
 #if DEBUG
+
+
+
         builder.Logging.AddDebug();
 #endif
 
